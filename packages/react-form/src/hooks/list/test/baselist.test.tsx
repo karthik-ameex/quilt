@@ -768,4 +768,126 @@ describe('useBaseList', () => {
       });
     });
   });
+
+  describe('value', () => {
+    function TestListWithValue(config: FieldListConfig<Variant>) {
+      const {value, newDefaultValue, defaultValue} = useBaseList<Variant>(
+        config,
+      );
+
+      const onNewDefault = (value: Variant[]) => {
+        newDefaultValue(value);
+      };
+
+      return (
+        <>
+          {value.map(variants => (
+            <>
+              <p>Value: {variants.price}</p>
+              <p>Value: {variants.optionName}</p>
+              <p>Value: {variants.optionValue}</p>
+            </>
+          ))}
+
+          {defaultValue.map(variants => (
+            <>
+              <p>Default: {variants.price}</p>
+              <p>Default: {variants.optionName}</p>
+              <p>Default: {variants.optionValue}</p>
+            </>
+          ))}
+
+          <button type="button" onClick={onNewDefault} />
+        </>
+      );
+    }
+
+    it('returns the value of the baselist', () => {
+      const price = '1.00';
+      const optionName = 'material';
+      const optionValue = 'cotton';
+      const variants: Variant[] = [
+        {
+          price,
+          optionName,
+          optionValue,
+        },
+      ];
+
+      const wrapper = mount(<TestListWithValue list={variants} />);
+      expect(wrapper).toContainReactText(`Value: ${price}`);
+      expect(wrapper).toContainReactText(`Value: ${optionName}`);
+      expect(wrapper).toContainReactText(`Value: ${optionValue}`);
+    });
+
+    it('sets and returns the default value of the base list', () => {
+      const price = '1.00';
+      const optionName = 'material';
+      const optionValue = 'cotton';
+      const variants: Variant[] = [
+        {
+          price,
+          optionName,
+          optionValue,
+        },
+      ];
+      const newDefaultPrice = '2.00';
+      const newDefaultOption = 'color';
+      const newDefaultOptionValue = 'blue';
+
+      const wrapper = mount(<TestListWithValue list={variants} />);
+
+      expect(wrapper).toContainReactText(`Default: ${price}`);
+      expect(wrapper).toContainReactText(`Default: ${optionName}`);
+      expect(wrapper).toContainReactText(`Default: ${optionValue}`);
+
+      wrapper.find('button')!.trigger('onClick', [
+        {
+          price: newDefaultPrice,
+          optionName: newDefaultOption,
+          optionValue: newDefaultOptionValue,
+        },
+      ]);
+
+      expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOptionValue}`);
+    });
+
+    it('can reinitialize after newDefaultValue is called', () => {
+      const variants: Variant[] = [
+        {
+          price: '1.00',
+          optionName: 'material',
+          optionValue: 'cotton',
+        },
+      ];
+
+      const newDefaultPrice = '2.00';
+      const newDefaultOption = 'color';
+      const newDefaultOptionValue = 'blue';
+
+      const wrapper = mount(<TestListWithValue list={variants} />);
+
+      wrapper.find('button')!.trigger('onClick', [
+        {
+          price: newDefaultPrice,
+          optionName: newDefaultOption,
+          optionValue: newDefaultOptionValue,
+        },
+      ]);
+
+      expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOptionValue}`);
+
+      wrapper.setProps({list: [{...variants[0], price: '100.00'}]});
+
+      expect(wrapper).not.toContainReactText(`Default: ${newDefaultPrice}`);
+      expect(wrapper).not.toContainReactText(`Default: ${newDefaultOption}`);
+      expect(wrapper).not.toContainReactText(
+        `Default: ${newDefaultOptionValue}`,
+      );
+    });
+  });
 });

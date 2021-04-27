@@ -652,7 +652,7 @@ const emptyCardFactory = (): Card => ({
   cvv: '',
 });
 
-const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
+const {fields, addItem, removeItem, moveItem, reset, dirty, value, newDefaultValue, defaultValue} = useDynamicList(
   [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
   emptyCardFactory,
 );

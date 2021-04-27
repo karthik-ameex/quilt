@@ -7,18 +7,21 @@ import {
   SubmitResult,
   FieldBag,
   FormError,
+  DynamicListBag,
 } from '../types';
 import {
   propagateErrors,
   validateAll,
   getValues,
   makeCleanFields,
+  makeCleanDynamicList,
 } from '../utilities';
 
 export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
   fieldBag: T,
   makeCleanAfterSubmit = false,
+  dynamicLists?: DynamicListBag,
 ) {
   const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
@@ -60,10 +63,11 @@ export function useSubmit<T extends FieldBag>(
         setSubmitErrors([]);
         if (makeCleanAfterSubmit) {
           makeCleanFields(fields);
+          makeCleanDynamicList(dynamicLists);
         }
       }
     },
-    [mounted, onSubmit, setErrors, makeCleanAfterSubmit],
+    [onSubmit, mounted, setErrors, makeCleanAfterSubmit, dynamicLists],
   );
 
   return {submit, submitting, errors: submitErrors, setErrors};
