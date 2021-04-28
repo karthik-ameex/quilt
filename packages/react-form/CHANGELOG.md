@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
 
 - Adds a makeCleanDynamicList function, the ability to set a newDefaultValue, defaultValue, and get the value of a dynamic list [#1871](https://github.com/Shopify/quilt/pull/1871)
 
