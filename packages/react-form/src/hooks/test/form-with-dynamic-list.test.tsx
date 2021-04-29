@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {mount, Root} from '@shopify/react-testing';
 
@@ -10,9 +9,7 @@ import {
   hitSubmit,
   hitReset,
   waitForSubmit,
-  changeTitle,
   clickEvent,
-  hitClean,
 } from './utilities';
 
 import {submitSuccess, submitFail} from '..';
@@ -243,7 +240,7 @@ describe('useForm with dynamic list', () => {
   });
 });
 
-function fillRequiredFields(wrapper: Root<unkown>) {
+function fillRequiredFields(wrapper: Root<any>) {
   const optionTextFields = wrapper.findAll(TextField, {label: 'option'});
   optionTextFields.forEach(textField =>
     textField.trigger('onChange', 'a value'),
