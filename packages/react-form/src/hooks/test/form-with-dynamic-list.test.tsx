@@ -200,7 +200,7 @@ describe('useForm with dynamic list', () => {
       expect(isDirty(wrapper)).toBe(true);
     });
 
-    it('does not undirty fields after if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
+    it('does not undirty fields if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
       const promise = Promise.resolve(submitFail());
       const wrapper = mount(
         <FormWithDynamicVariantList
