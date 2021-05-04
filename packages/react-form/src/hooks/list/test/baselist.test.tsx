@@ -781,19 +781,19 @@ describe('useBaseList', () => {
 
       return (
         <>
-          {value.map(variants => (
+          {value.map(variant => (
             <>
-              <p>Value: {variants.price}</p>
-              <p>Value: {variants.optionName}</p>
-              <p>Value: {variants.optionValue}</p>
+              <p>Value: {variant.price}</p>
+              <p>Value: {variant.optionName}</p>
+              <p>Value: {variant.optionValue}</p>
             </>
           ))}
 
-          {defaultValue.map(variants => (
+          {defaultValue.map(variant => (
             <>
-              <p>Default: {variants.price}</p>
-              <p>Default: {variants.optionName}</p>
-              <p>Default: {variants.optionValue}</p>
+              <p>Default: {variant.price}</p>
+              <p>Default: {variant.optionName}</p>
+              <p>Default: {variant.optionValue}</p>
             </>
           ))}
 
