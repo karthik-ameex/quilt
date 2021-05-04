@@ -337,7 +337,7 @@ describe('useDynamicList', () => {
     });
   });
 
-  describe('value', () => {
+  describe('value, newDefaultValue and defaultValue', () => {
     function TestListWithValue(config: FieldListConfig<Variant>) {
       const factory = () => {
         return {price: '', optionName: '', optionValue: ''};

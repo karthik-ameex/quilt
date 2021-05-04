@@ -212,7 +212,7 @@ export function makeCleanFields(fieldBag: FieldBag) {
   reduceFields(fieldBag, (_, field) => field.newDefaultValue(field.value));
 }
 
-export function makeCleanDynamicList(dynamicLists?: DynamicListBag) {
+export function makeCleanDynamicLists(dynamicLists?: DynamicListBag) {
   if (dynamicLists) {
     Object.values(dynamicLists).forEach(dynamicList => {
       dynamicList.newDefaultValue(dynamicList.value);

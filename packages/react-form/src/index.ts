@@ -23,5 +23,5 @@ export {
   validateAll,
   reduceFields,
   makeCleanFields,
-  makeCleanDynamicList,
+  makeCleanDynamicLists,
 } from './utilities';

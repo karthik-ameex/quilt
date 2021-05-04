@@ -10,6 +10,7 @@ import {
   hitReset,
   waitForSubmit,
   clickEvent,
+  fillRequiredFields,
 } from './utilities';
 
 import {submitSuccess, submitFail} from '..';
@@ -145,22 +146,6 @@ describe('useForm with dynamic list', () => {
   });
 
   describe('makeCleanAfterSubmit', () => {
-    it('does not set dirty to false after successful submit by default', async () => {
-      const promise = Promise.resolve(submitSuccess());
-      const wrapper = mount(
-        <FormWithDynamicVariantList data={fakeProduct()} />,
-      );
-
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
-      fillRequiredFields(wrapper);
-
-      expect(isDirty(wrapper)).toBe(true);
-
-      await waitForSubmit(wrapper, promise);
-
-      expect(isDirty(wrapper)).toBe(true);
-    });
-
     it('sets dirty to false after successful submit if makeCleanAfterSubmit is true', async () => {
       const promise = Promise.resolve(submitSuccess());
       const wrapper = mount(
@@ -239,15 +224,3 @@ describe('useForm with dynamic list', () => {
     });
   });
 });
-
-function fillRequiredFields(wrapper: Root<any>) {
-  const optionTextFields = wrapper.findAll(TextField, {label: 'option'});
-  optionTextFields.forEach(textField =>
-    textField.trigger('onChange', 'a value'),
-  );
-
-  const titleTextFields = wrapper.findAll(TextField, {label: 'title'});
-  titleTextFields.forEach(textField =>
-    textField.trigger('onChange', 'a value'),
-  );
-}

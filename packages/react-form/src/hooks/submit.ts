@@ -14,7 +14,7 @@ import {
   validateAll,
   getValues,
   makeCleanFields,
-  makeCleanDynamicList,
+  makeCleanDynamicLists,
 } from '../utilities';
 
 export function useSubmit<T extends FieldBag>(
@@ -69,7 +69,7 @@ export function useSubmit<T extends FieldBag>(
         setSubmitErrors([]);
         if (makeCleanAfterSubmit) {
           makeCleanFields(fields);
-          makeCleanDynamicList(dynamicLists);
+          makeCleanDynamicLists(dynamicLists);
         }
       }
     },

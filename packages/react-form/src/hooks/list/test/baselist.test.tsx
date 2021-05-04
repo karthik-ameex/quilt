@@ -867,6 +867,12 @@ describe('useBaseList', () => {
       const newDefaultOption = 'color';
       const newDefaultOptionValue = 'blue';
 
+      const nextVariant = {
+        price: '1.00',
+        optionName: 'material',
+        optionValue: 'cotton',
+      };
+
       const wrapper = mount(<TestListWithValue list={variants} />);
 
       wrapper.find('button')!.trigger('onClick', [
@@ -877,16 +883,14 @@ describe('useBaseList', () => {
         },
       ]);
 
-      expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
-      expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);
-      expect(wrapper).toContainReactText(`Default: ${newDefaultOptionValue}`);
+      expect(wrapper).toContainReactText(
+        `Default: ${newDefaultPrice}Default: ${newDefaultOption}Default: ${newDefaultOptionValue}`,
+      );
 
-      wrapper.setProps({list: [{...variants[0], price: '100.00'}]});
+      wrapper.setProps({list: [nextVariant]});
 
-      expect(wrapper).not.toContainReactText(`Default: ${newDefaultPrice}`);
-      expect(wrapper).not.toContainReactText(`Default: ${newDefaultOption}`);
       expect(wrapper).not.toContainReactText(
-        `Default: ${newDefaultOptionValue}`,
+        `Default: ${newDefaultPrice}Default: ${newDefaultOption}Default: ${newDefaultOptionValue}`,
       );
     });
   });

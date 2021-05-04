@@ -10,7 +10,11 @@ import {
   FormWithDynamicLists,
   DynamicListBag,
 } from '../types';
-import {validateAll, makeCleanFields, makeCleanDynamicList} from '../utilities';
+import {
+  validateAll,
+  makeCleanFields,
+  makeCleanDynamicLists,
+} from '../utilities';
 
 import {useDirty} from './dirty';
 import {useReset} from './reset';
@@ -130,8 +134,8 @@ export function useForm<T extends FieldBag, D extends DynamicListBag>({
 
   const fieldsRef = useLazyRef(() => fieldsWithLists);
   fieldsRef.current = fieldsWithLists;
-  const dynamicListRef = useLazyRef(() => dynamicLists);
-  dynamicListRef.current = dynamicLists;
+  const dynamicListsRef = useLazyRef(() => dynamicLists);
+  dynamicListsRef.current = dynamicLists;
 
   const validate = useCallback(() => {
     return validateAll(fieldsRef.current);
@@ -139,8 +143,8 @@ export function useForm<T extends FieldBag, D extends DynamicListBag>({
 
   const makeClean = useCallback(() => {
     makeCleanFields(fieldsRef.current);
-    makeCleanDynamicList(dynamicListRef.current);
-  }, [dynamicListRef, fieldsRef]);
+    makeCleanDynamicLists(dynamicListsRef.current);
+  }, [dynamicListsRef, fieldsRef]);
 
   const form: Form<T> = {
     fields,

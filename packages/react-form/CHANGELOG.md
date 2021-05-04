@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-- Adds a makeCleanDynamicList function, the ability to set a newDefaultValue, defaultValue, and get the value of a dynamic list [#1871](https://github.com/Shopify/quilt/pull/1871)
+- Adds a makeCleanDynamicLists function, the ability to set a newDefaultValue, defaultValue, and get the value of a dynamic list [#1871](https://github.com/Shopify/quilt/pull/1871)
 
 ## 0.13.0 - 2021-04-22
 
