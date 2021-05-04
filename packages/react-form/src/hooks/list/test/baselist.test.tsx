@@ -769,7 +769,7 @@ describe('useBaseList', () => {
     });
   });
 
-  describe('value', () => {
+  describe('value, newDefaultValue and defaultValue', () => {
     function TestListWithValue(config: FieldListConfig<Variant>) {
       const {value, newDefaultValue, defaultValue} = useBaseList<Variant>(
         config,
