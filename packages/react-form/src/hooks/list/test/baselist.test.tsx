@@ -820,7 +820,7 @@ describe('useBaseList', () => {
       expect(wrapper).toContainReactText(`Value: ${optionValue}`);
     });
 
-    it('sets and returns the default value of the base list', () => {
+    it('resets the list to a new default value', () => {
       const price = '1.00';
       const optionName = 'material';
       const optionValue = 'cotton';
