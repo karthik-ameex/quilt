@@ -145,7 +145,7 @@ describe('useForm with dynamic list', () => {
   });
 
   describe('makeCleanAfterSubmit', () => {
-    it('does not undirty fields after successful submit by default', async () => {
+    it('does not set dirty to false after successful submit by default', async () => {
       const promise = Promise.resolve(submitSuccess());
       const wrapper = mount(
         <FormWithDynamicVariantList data={fakeProduct()} />,
@@ -161,7 +161,7 @@ describe('useForm with dynamic list', () => {
       expect(isDirty(wrapper)).toBe(true);
     });
 
-    it('does undirty fields after successful submit if makeCleanAfterSubmit is true', async () => {
+    it('sets dirty to false after successful submit if makeCleanAfterSubmit is true', async () => {
       const promise = Promise.resolve(submitSuccess());
       const wrapper = mount(
         <FormWithDynamicVariantList
@@ -181,7 +181,7 @@ describe('useForm with dynamic list', () => {
       expect(isDirty(wrapper)).toBe(false);
     });
 
-    it('does not undirty fields after successful submit if makeCleanAfterSubmit is false', async () => {
+    it('does not set dirty to false after successful submit if makeCleanAfterSubmit is false', async () => {
       const promise = Promise.resolve(submitSuccess());
       const wrapper = mount(
         <FormWithDynamicVariantList
@@ -200,7 +200,7 @@ describe('useForm with dynamic list', () => {
       expect(isDirty(wrapper)).toBe(true);
     });
 
-    it('does not undirty fields if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
+    it('does not set dirty to false if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
       const promise = Promise.resolve(submitFail());
       const wrapper = mount(
         <FormWithDynamicVariantList

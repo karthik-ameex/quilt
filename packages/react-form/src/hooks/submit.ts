@@ -1,5 +1,5 @@
-import {useState, useCallback, useRef} from 'react';
-import {useMountedRef} from '@shopify/react-hooks';
+import {useState, useCallback} from 'react';
+import {useLazyRef, useMountedRef} from '@shopify/react-hooks';
 
 import {
   FormMapping,
@@ -21,23 +21,29 @@ export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
   fieldBag: T,
   makeCleanAfterSubmit = false,
-  dynamicLists?: DynamicListBag,
+  dynamicListBag?: DynamicListBag,
 ) {
   const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
   const [submitErrors, setSubmitErrors] = useState([] as FormError[]);
 
-  const fieldBagRef = useRef(fieldBag);
+  const fieldBagRef = useLazyRef(() => fieldBag);
   fieldBagRef.current = fieldBag;
+  const dynamicListBagRef = useLazyRef(() => dynamicListBag);
+  dynamicListBagRef.current = dynamicListBag;
 
-  const setErrors = useCallback((errors: FormError[]) => {
-    setSubmitErrors(errors);
-    propagateErrors(fieldBagRef.current, errors);
-  }, []);
+  const setErrors = useCallback(
+    (errors: FormError[]) => {
+      setSubmitErrors(errors);
+      propagateErrors(fieldBagRef.current, errors);
+    },
+    [fieldBagRef],
+  );
 
   const submit = useCallback(
     async (event?: React.FormEvent) => {
       const fields = fieldBagRef.current;
+      const dynamicLists = dynamicListBagRef.current;
       if (event && event.preventDefault && !event.defaultPrevented) {
         event.preventDefault();
       }
@@ -67,7 +73,14 @@ export function useSubmit<T extends FieldBag>(
         }
       }
     },
-    [onSubmit, mounted, setErrors, makeCleanAfterSubmit, dynamicLists],
+    [
+      fieldBagRef,
+      dynamicListBagRef,
+      onSubmit,
+      mounted,
+      setErrors,
+      makeCleanAfterSubmit,
+    ],
   );
 
   return {submit, submitting, errors: submitErrors, setErrors};
