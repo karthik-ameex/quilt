@@ -854,7 +854,7 @@ describe('useBaseList', () => {
       expect(wrapper).toContainReactText(`Default: ${newDefaultOptionValue}`);
     });
 
-    it('can reinitialize after newDefaultValue is called', () => {
+    it('reinitializes the list when the list config has changed after changing the default value', () => {
       const variants: Variant[] = [
         {
           price: '1.00',
